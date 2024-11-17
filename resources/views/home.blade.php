@@ -1,116 +1,101 @@
-@extends('layouts.app')
-@section('content')
-
-<style>
-    .image {
-        width: 100%;  
-        height: 450px; 
-        object-fit: cover; 
-        display: block;
-        margin: 0 auto; 
-    }
-
-    .card {
-        text-align: center; 
-        overflow: hidden; 
-        height: auto; 
-    }
-
-    .card-body .card-title {
-        font-size: 1.2em;
-        font-weight: bold;
-    }
-
-    .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-    }
-
-    /* Animated Content */
-    .animated {
-        opacity: 0;
-        transform: translateY(20px);
-        animation: fadeInUp 0.6s forwards;
-    }
-
-    .animated-delay {
-        animation-delay: 0.3s;
-    }
-
-    @keyframes fadeInUp {
-        0% {
-            opacity: 0;
-            transform: translateY(20px);
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Customer Management</title>
+    <!-- Bootstrap CSS CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Optional: Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+    <style>
+        body {
+            padding-top: 50px;
         }
-        100% {
-            opacity: 1;
-            transform: translateY(0);
+        .container {
+            max-width: 1200px;
         }
-    }
-</style>
-
-<h2 class="text-center my-5 animated animated-delay">Our Team</h2>
-
-<section class="animated animated-delay">
-  <div class="container">
-    <div class="row justify-content-center">
-      <!-- Jimmy -->
-      <div class="col-md-3 mb-4">
-        <div class="card shadow-lg rounded text-center border-0">
-            <a href="{{ url('/aboutJimmy') }}">
-                <img src="{{ asset('images/jimmy.jfif') }}" alt="" class="image">
-            </a>
-            <div class="card-body">
-                <h3 class="card-title">JIMMY TANG JING MING</h3>
-                <h5 class="card-text text-secondary fst-italic">CA21031</h5>
+        .table thead th {
+            vertical-align: middle;
+            text-align: center;
+        }
+        .table tbody td {
+            vertical-align: middle;
+            text-align: center;
+        }
+        .filter-links a {
+            margin-right: 15px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="{{ url('/') }}">Customer Management</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" 
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <!-- Optional: Additional Navigation Items -->
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="{{ url('/') }}">Home</a>
+                    </li>
+                    <!-- Add more nav items here if needed -->
+                </ul>
             </div>
         </div>
-      </div>
+    </nav>
 
-      <!-- Gan -->
-      <div class="col-md-3 mb-4">
-        <div class="card shadow-lg rounded text-center border-0">
-            <a href="{{ url('/aboutGan') }}">
-                <img src="{{ asset('images/ganweilin.jfif') }}" alt="" class="image">
-            </a>
-            <div class="card-body">
-                <h3 class="card-title">GAN WEI LIN</h3>
-                <h5 class="card-text text-secondary fst-italic">CA21085</h5>
+    <!-- Main Container -->
+    <div class="container mt-5">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h1 class="mb-0">Customer List</h1>
+            <div class="filter-links">
+                <a href="{{ url('/') }}" class="btn btn-outline-primary btn-sm">Show All Customers</a>
+                <a href="{{ url('/filter/gender/Male') }}" class="btn btn-outline-secondary btn-sm">Show Male Customers</a>
+                <a href="{{ url('/filter/gender/Female') }}" class="btn btn-outline-secondary btn-sm">Show Female Customers</a>
+                <a href="{{ url('/filter/birthday') }}" class="btn btn-outline-success btn-sm">Born After 2000</a>
             </div>
         </div>
-      </div>
 
-      <!-- Ming Fang -->
-      <div class="col-md-3 mb-4">
-        <div class="card shadow-lg rounded text-center border-0">
-            <a href="{{ url('/aboutMF') }}">
-                <img src="{{ asset('images/ooimingfang.jpg') }}" alt="" class="image">
-            </a>
-            <div class="card-body">
-                <h3 class="card-title">OOI MING FANG</h3>
-                <h5 class="card-text text-secondary fst-italic">CD21059</h5>
-            </div>
+        <!-- Customer Table -->
+        <div class="table-responsive">
+            <table class="table table-striped table-bordered align-middle">
+                <thead class="table-dark">
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Name <i class="bi bi-person-fill"></i></th>
+                        <th scope="col">Email <i class="bi bi-envelope-fill"></i></th>
+                        <th scope="col">Address <i class="bi bi-geo-alt-fill"></i></th>
+                        <th scope="col">Phone Number <i class="bi bi-telephone-fill"></i></th>
+                        <th scope="col">Gender <i class="bi bi-gender-ambiguous"></i></th>
+                        <th scope="col">Birthday <i class="bi bi-gift-fill"></i></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @forelse($customers as $index => $customer)
+                        <tr>
+                            <th scope="row">{{ $index + 1 }}</th>
+                            <td>{{ $customer->name }}</td>
+                            <td>{{ $customer->email }}</td>
+                            <td>{{ $customer->address }}</td>
+                            <td>{{ $customer->phone_number }}</td>
+                            <td>{{ $customer->gender }}</td>
+                            <td>{{ \Carbon\Carbon::parse($customer->birthday)->format('F d, Y') }}</td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="7" class="text-center">No customers found.</td>
+                        </tr>
+                    @endforelse
+                </tbody>
+            </table>
         </div>
-      </div>
-
-      <!-- Pei Yee -->
-      <div class="col-md-3 mb-4">
-        <div class="card shadow-lg rounded text-center border-0">
-            <a href="{{ url('/aboutPeiYee') }}">
-                <img src="{{ asset('images/tpy.jpeg') }}" alt="" class="image">
-            </a>
-            <div class="card-body">
-                <h3 class="card-title">TAN PEI YEE</h3>
-                <h5 class="card-text text-secondary fst-italic">CD21073</h5>
-            </div>
-        </div>
-      </div>
     </div>
-  </div>
-</section>
 
-
-
-@endsection
-
-
+    <!-- Bootstrap JS and Dependencies (Popper.js) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Optional: Include jQuery if needed for additional scripts -->
+</body>
+</html>
