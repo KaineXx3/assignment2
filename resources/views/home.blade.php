@@ -80,7 +80,7 @@
                             <td>{{ $customer->name }}</td>
                             <td>{{ $customer->email }}</td>
                             <td>{{ $customer->address }}</td>
-                            <td>{{ $customer->phone_number }}</td>
+                            <td>{{ $customer->phoneNumber }}</td>
                             <td>{{ $customer->gender }}</td>
                             <td>{{ \Carbon\Carbon::parse($customer->birthday)->format('F d, Y') }}</td>
                         </tr>
