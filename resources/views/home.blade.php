@@ -8,27 +8,72 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
     <style>
         body {
-            padding-top: 50px;
+            padding-top: 40px;
+            background-color: #f8f6f3;
+            color: #5a5a5a;
+            font-family: 'georgia';
         }
         .container {
             max-width: 1200px;
         }
+
+        /* Navbar Styling */
+        .navbar {
+            background-color: #dfd3c3; 
+        }
+
+        .navbar-brand, .nav-link.active{
+            color: #483e33 !important; ; 
+            font-weight: bold;
+        }
+
+        /* Header and Filter Links */
+        h1 {
+            color: #483e33; 
+            font-weight: bold;
+        }
+
+        .filter-links a {
+            margin-right: 15px;
+            color: #483e33;
+            border-color: #483e33;
+            background-color: #fff;
+            font-weight: bold;
+        }
+
+        .filter-links a:hover {
+            background-color: #483e33;
+            color: #fff;
+        }
+
+        /* Table Styling */
+        .table {
+            border-radius: 5px; 
+            overflow: hidden; 
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+        }
+
         .table thead th {
+            background-color: #483e33; 
+            color: #fff; 
             vertical-align: middle;
             text-align: center;
         }
+
         .table tbody td {
             vertical-align: middle;
             text-align: center;
         }
+
         .filter-links a {
             margin-right: 15px;
         }
+        
     </style>
 </head>
 <body>
     <!-- Navigation Bar -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
+    <nav class="navbar navbar-expand-lg fixed-top">
         <div class="container">
             <a class="navbar-brand" href="{{ url('/') }}">Customer Management</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" 
@@ -52,10 +97,10 @@
         <div class="d-flex justify-content-between align-items-center mb-3">
             <h1 class="mb-0">Customer List</h1>
             <div class="filter-links">
-                <a href="{{ url('/') }}" class="btn btn-outline-primary btn-sm">Show All Customers</a>
+                <a href="{{ url('/') }}" class="btn btn-outline-secondary btn-sm">Show All Customers</a>
                 <a href="{{ url('/filter/gender/Male') }}" class="btn btn-outline-secondary btn-sm">Show Male Customers</a>
                 <a href="{{ url('/filter/gender/Female') }}" class="btn btn-outline-secondary btn-sm">Show Female Customers</a>
-                <a href="{{ url('/filter/birthday') }}" class="btn btn-outline-success btn-sm">Born After 2000</a>
+                <a href="{{ url('/filter/birthday') }}" class="btn btn-outline-secondary btn-sm">Born After 2000</a>
             </div>
         </div>
 
